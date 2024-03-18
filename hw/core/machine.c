@@ -31,6 +31,7 @@
 #include "hw/virtio/virtio-pci.h"
 #include "hw/virtio/virtio-net.h"
 #include "audio/audio.h"
+#include "hw/core/terminator.h"
 
 GlobalProperty hw_compat_8_1[] = {
     { TYPE_PCI_BRIDGE, "x-pci-express-writeable-slt-bug", "true" },
@@ -1078,6 +1079,9 @@ static void machine_class_init(ObjectClass *oc, void *data)
         NULL, NULL);
     object_class_property_set_description(oc, "memory",
         "Memory size configuration");
+    
+    /* Allow dynamic instantiation of terminator device(s) */
+    machine_class_allow_dynamic_sysbus_dev(mc, TYPE_TERMINATOR);
 }
 
 static void machine_class_base_init(ObjectClass *oc, void *data)
